@@ -12,8 +12,11 @@ class Channel:
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
+        # API_KEY скопирован из гугла и вставлен в переменные окружения
         api_key: str = os.getenv('API_KEY')
         # создать специальный объект для работы с API
         youtube = build('youtube', 'v3', developerKey=api_key)
+        # получить данные о канале по его id
         channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        # Выводит словарь в json-подобном удобном формате с отступами
         print(json.dumps(channel, indent=2, ensure_ascii=False))
